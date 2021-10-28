@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+
 import MenuCard from  "../components/MenuCard"
 
 function Menu(props) {
   
-console.log(props.menuItems)
+console.log(props.menuItems, 'in menu.js')
   return (
     <section>
       <MenuCard menuItems={props.menuItems}/>
