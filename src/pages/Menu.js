@@ -13,9 +13,9 @@ import Divider from '@material-ui/core/Divider';
   justify-content: space-evenly;
   flex-wrap: row;
   .leftBox{
-   height: 500px;
+   width: 40%;
     display:flex;
-    background-color:blue;
+   
   }
   .rightBox{
 
@@ -27,7 +27,7 @@ function Menu(props) {
 
   return (
     <ContainerStyle>
-      <Container>
+     
         <div>
         <Box className='leftBox'>
           <h1>Menu</h1>
@@ -37,7 +37,7 @@ function Menu(props) {
         <Box className='rightBox'>
         <MenuCard menuItems={props.menuItems}/>
         </Box>
-      </Container>
+     
     </ContainerStyle>
   );
 }
