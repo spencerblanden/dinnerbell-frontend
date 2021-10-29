@@ -18,12 +18,13 @@ const NavStyle = styled.header`
         background-color: whitesmoke;
         height: 7rem;
         width: 100%;
+        box-shadow: 1px 1px 3px 2px #808080;
         .links{
            display: flex;
            justify-content: flex-end;
            align-items: flex-end;
            
-                font-size: 1rem;
+                font-size: 10px;
            a{ text-decoration: none;
             color: inherit;
             margin-right: 16px;
