@@ -4,8 +4,8 @@ import Divider from '@material-ui/core/Divider';
 import styled from 'styled-components';
 import { RowingTwoTone } from '@material-ui/icons';
 import { findByLabelText } from '@testing-library/react';
-
 import { Link } from 'react-router-dom';
+import { logOut } from '../services/firebase';
 // import { ColumnToRow, Row, Item } from '@mui-treasury/components/flex';
 // import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
 
@@ -43,7 +43,7 @@ const NavStyle = styled.header`
 const Nav = (props) => {
 
     return (
-        <NavStyle>
+        <NavStyle >
            <Box className='outerBox'>
            <Container>
             <Box className='logo'>
@@ -57,6 +57,15 @@ const Nav = (props) => {
             <Link to="/menu">
                 <h1>Menu</h1>
             </Link>
+            {
+                props.user ? 
+                <>
+            <Link to="/" onClick={logOut}>
+                <h1>Logout</h1>
+            </Link>
+                </ > :
+                 <></>
+                }
             </Box>
            </Container>
            </Box>
