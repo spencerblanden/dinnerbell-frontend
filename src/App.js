@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Home from "./pages/Home";
 import Dashboard from './pages/Dashboard';
 import { Redirect } from 'react-router';
-
+import Show from './pages/Show';
 
 import { auth } from './services/firebase';
 
@@ -14,13 +14,7 @@ import './App.css';
 import { Unsubscribe } from '@material-ui/icons';
 
 
-const ProtectedRoute = (props) => {
-  if(props.user) {
-    return props.component;
-  } else {
-    return <Redirect to='/login' />
-  }
-}
+
 
 
 function App() {
@@ -38,7 +32,7 @@ return () => unsubscribe()
   const getMenuItems = async () => {
     const response = await fetch(URL);
     const data = await response.json();
-    console.log(data)
+  
     setMenuItems(data)
   };
 
@@ -65,6 +59,9 @@ return () => unsubscribe()
           user ? <Dashboard /> : <Redirect to='/login' />
         )} >
             <Dashboard  />
+        </Route>
+        <Route>
+          <Show />
         </Route>
       </Switch>
    </>

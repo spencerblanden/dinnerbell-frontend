@@ -18,18 +18,18 @@ const handleChange = event => {
 
         setHeartState(prevState => ({
             ...prevState,
-            [event.target.name]: event.target.value
+            [event.target.name]: value
         }));
     }
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        // TODO: adds user's uid to Heart
-        props.createContact(heartState);
-        // setHeartState({
-        //     rating: false
-        // }); 
-    }
+    // const handleSubmit = event => {
+    //     event.preventDefault();
+    //     // TODO: adds user's uid to Heart
+    //     props.createContact(heartState);
+    //     // setHeartState({
+    //     //     rating: false
+    //     // }); 
+    // }
 
   return (
     <div>
