@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { StyledMain } from '../styles';
+
 
 const Show = (props) => {
     const [formState, setFormState ] = useState({
@@ -19,7 +19,7 @@ const Show = (props) => {
 
     return (
         <>
-          
+         hey 
         </>
     );
 };

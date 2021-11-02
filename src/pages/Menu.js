@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
+import ItemType from "../components/ItemType";
 
   const ContainerStyle = styled.body`
   height: 100vh;
@@ -13,29 +14,41 @@ import Divider from '@material-ui/core/Divider';
   justify-content: space-evenly;
   flex-wrap: row;
   .leftBox{
-   width: 40%;
-    display:flex;
-   
+    width: 40%;
+   margin-right: 10px;
   }
   .rightBox{
-
+    display: 'flex';
+    flex-wrap: 'wrap';
+    flex-direction: 'column';
+    width: 100%;
 
   }
+  .card{
+    display: 'flex';
+    flex-wrap: 'wrap';
+    flex-direction: 'row';
+  }
   `;
+
+
+
 function Menu(props) {
   
-
+console.log(props)
   return (
     <ContainerStyle>
      
-        <div>
+      
         <Box className='leftBox'>
-          <h1>Menu</h1>
+          <ItemType menuItems={props.menuItems}/>
         </Box>
-        </div>
+       
         <Divider />
         <Box className='rightBox'>
-        <MenuCard menuItems={props.menuItems}/>
+        <MenuCard className='card'
+        menuItems={props.menuItems} 
+        updateMenuItem={props.updateMenuItem}/>
         </Box>
      
     </ContainerStyle>

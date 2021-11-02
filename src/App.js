@@ -36,6 +36,26 @@ return () => unsubscribe()
     setMenuItems(data)
   };
 
+  const updateMenuItem = async dish => {
+    // if(!user) return;
+    // const token = await user.getIdToken();
+    const data = {...dish 
+      // managedBy: user.uid
+    } // attach logged in user's uid to the data we send to the server
+    console.log(data)
+    await fetch(URL, {
+      method: 'PUT', 
+      headers: {
+        'Content-type': 'Application/json',
+        // 'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(data)
+    });
+    getMenuItems();
+  }
+
+  
+
   useEffect(() => {   
     getMenuItems()}
     , []);
@@ -48,12 +68,12 @@ return () => unsubscribe()
           <Home   />
         </Route>
         <Route path="/menu" >
-            <Menu menuItems={menuItems} />
+            <Menu menuItems={menuItems} 
+            updateMenuItem={updateMenuItem} />
         </Route>
         <Route path="/login" render={() => (
           user ? <Redirect to='/dashboard' /> : <Login />
         )}>
-            <Login  />
         </Route>
         <Route path="/dashboard" render={() => (
           user ? <Dashboard /> : <Redirect to='/login' />

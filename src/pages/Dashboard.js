@@ -78,7 +78,7 @@ const Dashboard = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        {/* {
                             props.contacts.map(c => (
                                 <tr key={c._id}>
                                     <td>{c.firstName}</td>
@@ -87,7 +87,7 @@ const Dashboard = (props) => {
                                     <td>{c.companyName}</td>
                                 </tr>
                             ))
-                        }
+                        } */}
                     </tbody>
                 </table>
             </section>
