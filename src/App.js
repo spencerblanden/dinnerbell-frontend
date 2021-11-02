@@ -27,7 +27,7 @@ return () => unsubscribe()
 
   const [menuItems, setMenuItems] = useState(null);
 
-  const URL = "http://localhost:3001/menu/";
+  const URL = "http://localhost:3001/api/menu/";
 
   const getMenuItems = async () => {
     const response = await fetch(URL);
@@ -42,7 +42,7 @@ return () => unsubscribe()
     const data = {...dish 
       // managedBy: user.uid
     } // attach logged in user's uid to the data we send to the server
-    console.log(data)
+    console.log(data, "data")
     await fetch(URL, {
       method: 'PUT', 
       headers: {
