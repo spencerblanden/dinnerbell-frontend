@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
+
 const Dashboard = (props) => {
     const [ formState, setFormState ] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        companyName: "",
+        name: "",
+        image: "",
+        description: "",
+        rating: false,
+        itemType: "",
     });
 
-    // form helper functions
+   
 
     const handleChange = event => {
         setFormState(prevState => ({
@@ -20,13 +22,14 @@ const Dashboard = (props) => {
     const handleSubmit = event => {
         event.preventDefault();
         // TODO: adds user's uid to form
-        props.createContact(formState);
+        props.createMenuItem(formState);
         setFormState({
-            firstName: "",
-            lastName: "",
-            email: "",
-            companyName: "",
-        }); // clear form after its been submitted
+            name: "",
+            image: "",
+            description: "",
+            rating: false,
+            itemType: "",
+        }); 
     }
 
     return (
@@ -34,60 +37,60 @@ const Dashboard = (props) => {
             <h1>Your Contacts</h1>
             <section>
                 <form onSubmit={handleSubmit}>
-                    <label>First Name
+                    <label>Name
                         <input 
                             onChange={handleChange} 
-                            value={formState.firstName} 
-                            name="firstName" 
+                            value={formState.name} 
+                            name="name" 
                             type="text" 
                         />
                     </label>
-                    <label>Last Name
+                    <label>Image
                         <input 
                             onChange={handleChange} 
-                            value={formState.lastName} 
-                            name="lastName" 
+                            value={formState.image} 
+                            name="image" 
                             type="text" 
                         />
                     </label>
-                    <label>Email
+                    <label>Description
                         <input 
                             onChange={handleChange} 
-                            value={formState.email} 
-                            name="email" 
-                            type="email" 
+                            value={formState.description} 
+                            name="description" 
+                            type="text" 
                         />
                     </label>
-                    <label>Company Name
+                    <label>Item Type
                     <input 
                         onChange={handleChange} 
-                        value={formState.companyName} 
-                        name="companyName" 
+                        value={formState.itemType} 
+                        name="itemType" 
                         type="text" 
                     />
                     </label>
-                    <input type="submit" value="Add Contact" />
+                    <input type="submit" value="Add Menu Item" />
                 </form>
                 <table>
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Company Name</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Item Type</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {
-                            props.contacts.map(c => (
+                        {
+                            props.menuItems.map(c => (
                                 <tr key={c._id}>
-                                    <td>{c.firstName}</td>
-                                    <td>{c.lastName}</td>
-                                    <td>{c.email}</td>
-                                    <td>{c.companyName}</td>
+                                    <td>{c.name}</td>
+                                    <td>{c.image} </td>
+                                    <td>{c.description}</td>
+                                    <td>{c.itemType}</td>
                                 </tr>
                             ))
-                        } */}
+                        }
                     </tbody>
                 </table>
             </section>

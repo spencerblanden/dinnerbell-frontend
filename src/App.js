@@ -7,11 +7,11 @@ import Home from "./pages/Home";
 import Dashboard from './pages/Dashboard';
 import { Redirect } from 'react-router';
 import Show from './pages/Show';
-
+import { useRef } from 'react';
 import { auth } from './services/firebase';
 
 import './App.css';
-import { Unsubscribe } from '@material-ui/icons';
+
 
 
 
@@ -20,46 +20,79 @@ import { Unsubscribe } from '@material-ui/icons';
 function App() {
 const [ user, setUser ] = useState(null);
 
-useEffect(() =>{ 
-const unsubscribe = auth.onAuthStateChanged(user => setUser(user));
-return () => unsubscribe()
-}, [user])
 
-  const [menuItems, setMenuItems] = useState(null);
+const [menuItems, setMenuItems] = useState(null);
 
-  const URL = "http://localhost:3001/api/menu/";
+const fetchData = useRef(null);
 
-  const getMenuItems = async () => {
-    const response = await fetch(URL);
-    const data = await response.json();
+
+
+const URL = "http://localhost:3001/api/menu/";
+
+const getMenuItems = async () => {
+  const response = await fetch(URL);
+  const data = await response.json();
   
-    setMenuItems(data)
-  };
+  setMenuItems(data)
+};
 
-  const updateMenuItem = async dish => {
-    // if(!user) return;
-    // const token = await user.getIdToken();
-    const data = {...dish 
-      // managedBy: user.uid
-    } // attach logged in user's uid to the data we send to the server
-    console.log(data, "data")
-    await fetch(URL, {
-      method: 'PUT', 
-      headers: {
-        'Content-type': 'Application/json',
-        // 'Authorization': 'Bearer ' + token
-      },
-      body: JSON.stringify(data)
-    });
-    getMenuItems();
-  }
+const createMenuItem = async dish => {
+  // if(!user) return;
+  // const token = await user.getIdToken();
+  const data = {...dish ,
+    managedBy: user.uid
+  } // attach logged in user's uid to the data we send to the server
+  console.log(data)
+  await fetch(URL, {
+    method: 'POST', 
+    headers: {
+      'Content-type': 'Application/json',
+      // 'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+  getMenuItems();
+}
 
+
+const updateMenuItem = async dish => {
+  // if(!user) return;
+  // const token = await user.getIdToken();
+  const data = {...dish 
+    // managedBy: user.uid
+  } // attach logged in user's uid to the data we send to the server
+  console.log(data)
+  await fetch(URL, {
+    method: 'PUT', 
+    headers: {
+      'Content-type': 'Application/json',
+      // 'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+  getMenuItems();
+}
+
+
+
+useEffect(() => {   
+  getMenuItems()}
+  , []);
+
+  useEffect(() =>{ 
+  const unsubscribe = auth.onAuthStateChanged(user => {
+    setUser(user)
+    
+    // if(user) {
+    //   fetchData.current()
+    // } else {
+    //   setMenuItems([])
+    // }
+
+  })
+  return () => unsubscribe()
+  }, [user])
   
-
-  useEffect(() => {   
-    getMenuItems()}
-    , []);
-
   return (
     <>
       <Nav user={user}/>
@@ -76,9 +109,12 @@ return () => unsubscribe()
         )}>
         </Route>
         <Route path="/dashboard" render={() => (
-          user ? <Dashboard /> : <Redirect to='/login' />
+          user ? <Dashboard menuItems={menuItems}
+          createMenuItem={createMenuItem}
+          /> 
+          : <Redirect to='/login' />
         )} >
-            <Dashboard  />
+            
         </Route>
         <Route>
           <Show />
