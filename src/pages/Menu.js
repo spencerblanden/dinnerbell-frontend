@@ -48,7 +48,9 @@ console.log(props)
         <Box className='rightBox'>
         <MenuCard className='card'
         menuItems={props.menuItems} 
-        updateMenuItem={props.updateMenuItem}/>
+        updateMenuItem={props.updateMenuItem}
+        userDetails={props.userDetails}
+        updateUserDetails={props.updateUserDetails}/>
         </Box>
      
     </ContainerStyle>

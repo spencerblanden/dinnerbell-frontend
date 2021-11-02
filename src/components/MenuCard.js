@@ -77,27 +77,30 @@ const useStyles= makeStyles(() => ({
 function MenuCard(props) {
 
 
-    const [ heartState, setHeartState ] = useState({
-        
-        rating: false
+    const [ rating, setRating ] = useState({
+        ...props.userDetails
 } )
 
 
 
-const handleClick = async (event, dish) => {
-    // event.target.name === dish.name
-    // ? event.target.checked 
-    // : event.target.value
-         
+const handleClick = async (event, dish, newrating) => {
+    const value = props.userDetails
     
-    //    await setHeartState()
+    await props.updateUserDetails({
+        ...props.userDetails,
+        commentSchema: [{
+            rating: !newrating,
+            menuItem: dish.name
+        }]
+    })
+
+
   
         
-   await props.updateMenuItem({...dish,
-    rating: !dish.rating});
-  
+//    await props.updateMenuItem({...dish,
+//     rating: !dish.rating});  
 }
-console.log(props.menuItems)
+
 
 
 
@@ -127,8 +130,7 @@ return (
                     icon={<FavoriteBorder />} 
                     checkedIcon={<Favorite />} 
                     name={dish.name} 
-                    onChange={(event) => handleClick(event, dish)}
-                    // onClick={handleSubmit}
+                    onChange={(event) => handleClick(event, dish, rating)}
                     checked={dish.rating} />
                 }
                 title={dish.name} value={dish.name}

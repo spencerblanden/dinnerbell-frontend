@@ -20,6 +20,7 @@ import './App.css';
 function App() {
 const [ user, setUser ] = useState(null);
 
+const [userDetails, setUserDetails] = useState(null);
 
 const [menuItems, setMenuItems] = useState(null);
 
@@ -27,18 +28,34 @@ const fetchData = useRef(null);
 
 
 
-const URL = "http://localhost:3001/api/menu/";
+const URL = "http://localhost:3001/api/";
 
 const getMenuItems = async () => {
-  const response = await fetch(URL);
+  // if(!user) return;
+  // const token = user.getIdToken()
+  const response = await fetch(`${URL}menu/`);
   const data = await response.json();
   
   setMenuItems(data)
 };
 
+const getUserDetails = async () => {
+  if(!user) return;
+  const token = user.getIdToken()
+  const response = await fetch(`${URL}user/`, {
+      method: 'Get',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+  const data = await response.json();
+  setUserDetails(data)
+};
+
+
 const createMenuItem = async dish => {
-  // if(!user) return;
-  // const token = await user.getIdToken();
+  if(!user) return;
+  const token = await user.getIdToken();
   const data = {...dish ,
     managedBy: user.uid
   } // attach logged in user's uid to the data we send to the server
@@ -47,7 +64,7 @@ const createMenuItem = async dish => {
     method: 'POST', 
     headers: {
       'Content-type': 'Application/json',
-      // 'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(data)
   });
@@ -56,28 +73,46 @@ const createMenuItem = async dish => {
 
 
 const updateMenuItem = async dish => {
-  // if(!user) return;
-  // const token = await user.getIdToken();
-  const data = {...dish 
-    // managedBy: user.uid
+  if(!user) return;
+  const token = await user.getIdToken();
+  const data = {...dish ,
+    managedBy: user.uid
   } // attach logged in user's uid to the data we send to the server
   console.log(data)
   await fetch(URL, {
     method: 'PUT', 
     headers: {
       'Content-type': 'Application/json',
-      // 'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(data)
   });
   getMenuItems();
 }
 
+const updateUserDetails = async ind => {
+  if(!user) return;
+  const token = await user.getIdToken();
+  const data = {...ind ,
+    user: user.uid
+  } // attach logged in user's uid to the data we send to the server
+  console.log(data)
+  await fetch(URL, {
+    method: 'PUT', 
+    headers: {
+      'Content-type': 'Application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+  getUserDetails();
+}
+
 
 
 useEffect(() => {   
   getMenuItems()}
-  , []);
+  , [user]);
 
   useEffect(() =>{ 
   const unsubscribe = auth.onAuthStateChanged(user => {
@@ -102,7 +137,9 @@ useEffect(() => {
         </Route>
         <Route path="/menu" >
             <Menu menuItems={menuItems} 
-            updateMenuItem={updateMenuItem} />
+            updateMenuItem={updateMenuItem} 
+            userDetails={userDetails}
+            updateUserDetails={updateUserDetails}/>
         </Route>
         <Route path="/login" render={() => (
           user ? <Redirect to='/dashboard' /> : <Login />

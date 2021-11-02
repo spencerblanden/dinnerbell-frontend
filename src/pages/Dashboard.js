@@ -34,7 +34,7 @@ const Dashboard = (props) => {
 
     return (
         <main>
-            <h1>Your Contacts</h1>
+            <h1>Add Menu Items Here</h1>
             <section>
                 <form onSubmit={handleSubmit}>
                     <label>Name
