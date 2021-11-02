@@ -9,8 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import { useState } from 'react';
+import MenuCardFormButton from './MenuCardFormButtons'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
 
 const useStyles= makeStyles(() => ({
     card: {
@@ -78,36 +78,28 @@ function MenuCard(props) {
 
 
     const [ heartState, setHeartState ] = useState({
-        name: '',
-        image: '',
-        description: '',
+        
         rating: false
 } )
 
 
 
 const handleClick = async (event, dish) => {
-   const value = event.target.name === 'rating' 
-    ? event.target.checked 
-    : event.target.value
+    // event.target.name === dish.name
+    // ? event.target.checked 
+    // : event.target.value
          
     
-        setHeartState({...props.menuItems,
-      [event.target.name]: value})
+    //    await setHeartState()
   
         
-   await handleSubmit(event);
+   await props.updateMenuItem({...dish,
+    rating: !dish.rating});
+  
 }
 console.log(props.menuItems)
-const handleSubmit = event => {
-    event.preventDefault();
-    // TODO: adds user's uid to Heart
-   props.updateMenuItem(heartState);
-    setHeartState({
-        ...props.menuItems,
-        rating: false
-    }); 
-}
+
+
 
 
 
@@ -134,10 +126,10 @@ return (
                     <Checkbox {...label} 
                     icon={<FavoriteBorder />} 
                     checkedIcon={<Favorite />} 
-                    name="rating" 
-                    onChange={handleClick}
+                    name={dish.name} 
+                    onChange={(event) => handleClick(event, dish)}
                     // onClick={handleSubmit}
-                    checked={heartState.rating} />
+                    checked={dish.rating} />
                 }
                 title={dish.name} value={dish.name}
                 subheader={dish.description} value={dish.description}
