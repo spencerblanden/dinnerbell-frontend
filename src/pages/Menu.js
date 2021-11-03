@@ -35,7 +35,7 @@ import ItemType from "../components/ItemType";
 
 function Menu(props) {
   
-console.log(props)
+
   return (
     <ContainerStyle>
      
