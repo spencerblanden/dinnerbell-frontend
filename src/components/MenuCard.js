@@ -10,9 +10,11 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import { useState } from 'react';
 import MenuCardFormButton from './MenuCardFormButtons'
+import { flexbox } from '@mui/system';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const useStyles= makeStyles(() => ({
+    
     card: {
         minWidth: 200,
         width: 300,
@@ -77,23 +79,24 @@ const useStyles= makeStyles(() => ({
 function MenuCard(props) {
 
 
-    const [ rating, setRating ] = useState({
-        ...props.userDetails
-} )
+    const [ rating, setRating ] = useState(false )
+
+    const [ itemName, setItemName ] = useState(null)
 
 
 
-const handleClick = async (event, dish, newrating) => {
-    const value = props.userDetails
-    
+const handleClick = async (event, dish, newRating) => {
+   
+    console.log(newRating)
+    await setRating(!newRating)
+
     await props.updateUserDetails({
         ...props.userDetails,
-        commentSchema: [{
-            rating: !newrating,
+        details: [{
+            rating: !newRating,
             menuItem: dish.name
         }]
     })
-
 
   
         
@@ -103,7 +106,13 @@ const handleClick = async (event, dish, newrating) => {
 
 
 
+// const value = props.userDetails.user
+// if(user == value){
+//     user.details.map(rate, idx) => (
 
+
+//     )
+// }
 
 
 
@@ -112,8 +121,9 @@ const handleClick = async (event, dish, newrating) => {
 const mediaStyles = useCoverCardMediaStyles();
 
 return (
-        props.menuItems &&
+    props.menuItems &&
         props.menuItems.map((dish, idx) => (
+            
             <Card className={styles.card} href='./pages/menu'>
                 <Box className={styles.main}  minHeight={200} position={'relative'}>
             <CardMedia classes ={mediaStyles}
@@ -130,16 +140,20 @@ return (
                     icon={<FavoriteBorder />} 
                     checkedIcon={<Favorite />} 
                     name={dish.name} 
+                    checked={rating}
                     onChange={(event) => handleClick(event, dish, rating)}
-                    checked={dish.rating} />
+                    />
                 }
-                title={dish.name} value={dish.name}
+                title={rating} value={dish.name}
                 subheader={dish.description} value={dish.description}
                 />
                 <div className={styles.shadow}/>
                 
         </Card>
-        )
-));
-            }
+       
+    ))
+        
+     )
+        }
+
 export default MenuCard;

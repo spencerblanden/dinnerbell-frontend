@@ -2,8 +2,6 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import styled from 'styled-components';
-import { RowingTwoTone } from '@material-ui/icons';
-import { findByLabelText } from '@testing-library/react';
 import { Link } from 'react-router-dom';
 import { logOut } from '../services/firebase';
 // import { ColumnToRow, Row, Item } from '@mui-treasury/components/flex';

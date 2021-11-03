@@ -20,7 +20,7 @@ import ItemType from "../components/ItemType";
   .rightBox{
     display: 'flex';
     flex-wrap: 'wrap';
-    flex-direction: 'column';
+    flex-direction: 'row';
     width: 100%;
 
   }
@@ -45,12 +45,12 @@ function Menu(props) {
         </Box>
        
         <Divider />
-        <Box className='rightBox'>
-        <MenuCard className='card'
-        menuItems={props.menuItems} 
-        updateMenuItem={props.updateMenuItem}
-        userDetails={props.userDetails}
-        updateUserDetails={props.updateUserDetails}/>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }} className='rightBox'>
+          <MenuCard className='card'
+          menuItems={props.menuItems} 
+          updateMenuItem={props.updateMenuItem}
+          userDetails={props.userDetails}
+          updateUserDetails={props.updateUserDetails}/>
         </Box>
      
     </ContainerStyle>

@@ -10,6 +10,7 @@ import Show from './pages/Show';
 import { useRef } from 'react';
 import { auth } from './services/firebase';
 
+
 import './App.css';
 
 
@@ -131,7 +132,11 @@ useEffect(() => {
   }, [user])
   
   return (
-    <>
+    <div style={{ 
+      // backgroundImage: 'url(/DBBG.png)',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+      }}>
       <Nav user={user}/>
       <Switch>
         <Route exact path="/">
@@ -159,7 +164,7 @@ useEffect(() => {
           <Show />
         </Route>
       </Switch>
-   </>
+   </div>
   );
 }
 
