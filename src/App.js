@@ -9,9 +9,17 @@ import { Redirect } from 'react-router';
 import Show from './pages/Show';
 import { useRef } from 'react';
 import { auth } from './services/firebase';
-
-
+import  Footer  from './components/Footer';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import './App.css';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Roboto',
+      'sans-serif',
+    ].join(','),
+  },});
 
 
 
@@ -132,8 +140,9 @@ useEffect(() => {
   }, [user])
   
   return (
+    <ThemeProvider theme={theme}>
     <div style={{ 
-      // backgroundImage: 'url(/DBBG.png)',
+      backgroundImage: 'url(/DBBG.png)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
       }}>
@@ -158,13 +167,14 @@ useEffect(() => {
           /> 
           : <Redirect to='/login' />
         )} >
-            
         </Route>
         <Route>
           <Show />
         </Route>
       </Switch>
+      <Footer/>
    </div>
+   </ThemeProvider>
   );
 }
 

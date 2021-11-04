@@ -31,7 +31,7 @@ const NavStyle = styled.header`
        }
        img{
          height: 100px;
-            width: 100px;
+            width: auto;
             position: absolute;
        }
        
@@ -45,7 +45,9 @@ const Nav = (props) => {
            <Box className='outerBox'>
            <Container>
             <Box className='logo'>
-                <img src='../DinnerBellLogo.png' alt=''/>
+                <Link to='/'>
+                <img src='../DBLOGO.png' alt='' />
+                </Link>
             </Box> 
             <Divider />
             <Box className='links'>

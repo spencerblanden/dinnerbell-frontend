@@ -12,7 +12,7 @@ const CTAStyle = styled.section`
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        background-color: rgb(199, 0, 17);
+        background-color: rgb(131, 0, 11);
         height: 11rem;
         width: 100%;
         box-shadow: 1px 1px 3px 2px #808080;

@@ -123,16 +123,16 @@ const mediaStyles = useCoverCardMediaStyles();
 return (
     props.menuItems &&
         props.menuItems.map((dish, idx) => (
-            
+        <Box sx={{ m: 1 }}>
             <Card className={styles.card} href='./pages/menu'>
                 <Box className={styles.main}  minHeight={200} position={'relative'}>
-            <CardMedia classes ={mediaStyles}
-                component="img"
-                height="194"
-                image={dish.image} value={dish.image}
-                alt={dish.name}
-                key= {idx}
-                />
+                    <CardMedia classes ={mediaStyles}
+                        component="img"
+                        height="194"
+                        image={dish.image} value={dish.image}
+                        alt={dish.name}
+                        key= {idx}
+                    />
                 </Box>
              <CardHeader 
                 action={
@@ -150,7 +150,7 @@ return (
                 <div className={styles.shadow}/>
                 
         </Card>
-       
+       </Box>
     ))
         
      )
