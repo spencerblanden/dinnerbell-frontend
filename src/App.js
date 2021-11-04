@@ -36,8 +36,8 @@ const [menuItems, setMenuItems] = useState(null);
 const fetchData = useRef(null);
 
 
-const USER_URL = "http://localhost:3001/api/user/"
-const MENU_URL = "http://localhost:3001/api/menu/";
+const USER_URL = "https://dinnerbellky.herokuapp.com/api/user/"
+const MENU_URL = "https://dinnerbellky.herokuapp.com/api/menu/";
 
 const getMenuItems = async () => {
   // if(!user) return;
