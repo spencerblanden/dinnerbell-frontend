@@ -10,9 +10,11 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import { useState } from 'react';
 import MenuCardFormButton from './MenuCardFormButtons'
+import { flexbox } from '@mui/system';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const useStyles= makeStyles(() => ({
+    
     card: {
         minWidth: 200,
         width: 300,
@@ -77,30 +79,40 @@ const useStyles= makeStyles(() => ({
 function MenuCard(props) {
 
 
-    const [ heartState, setHeartState ] = useState({
-        
-        rating: false
-} )
+    const [ rating, setRating ] = useState(false )
+
+    const [ itemName, setItemName ] = useState(null)
 
 
 
-const handleClick = async (event, dish) => {
-    // event.target.name === dish.name
-    // ? event.target.checked 
-    // : event.target.value
-         
-    
-    //    await setHeartState()
+const handleClick = async (event, dish, newRating) => {
+   
+    console.log(newRating)
+    await setRating(!newRating)
+
+    await props.updateUserDetails({
+        ...props.userDetails,
+        details: [{
+            rating: !newRating,
+            menuItem: dish.name
+        }]
+    })
+
   
         
-   await props.updateMenuItem({...dish,
-    rating: !dish.rating});
-  
+//    await props.updateMenuItem({...dish,
+//     rating: !dish.rating});  
 }
-console.log(props.menuItems)
 
 
 
+// const value = props.userDetails.user
+// if(user == value){
+//     user.details.map(rate, idx) => (
+
+
+//     )
+// }
 
 
 
@@ -109,17 +121,18 @@ console.log(props.menuItems)
 const mediaStyles = useCoverCardMediaStyles();
 
 return (
-        props.menuItems &&
+    props.menuItems &&
         props.menuItems.map((dish, idx) => (
+        <Box sx={{ m: 1 }}>
             <Card className={styles.card} href='./pages/menu'>
                 <Box className={styles.main}  minHeight={200} position={'relative'}>
-            <CardMedia classes ={mediaStyles}
-                component="img"
-                height="194"
-                image={dish.image} value={dish.image}
-                alt={dish.name}
-                key= {idx}
-                />
+                    <CardMedia classes ={mediaStyles}
+                        component="img"
+                        height="194"
+                        image={dish.image} value={dish.image}
+                        alt={dish.name}
+                        key= {idx}
+                    />
                 </Box>
              <CardHeader 
                 action={
@@ -127,17 +140,20 @@ return (
                     icon={<FavoriteBorder />} 
                     checkedIcon={<Favorite />} 
                     name={dish.name} 
-                    onChange={(event) => handleClick(event, dish)}
-                    // onClick={handleSubmit}
-                    checked={dish.rating} />
+                    checked={rating}
+                    onChange={(event) => handleClick(event, dish, rating)}
+                    />
                 }
-                title={dish.name} value={dish.name}
+                title={rating} value={dish.name}
                 subheader={dish.description} value={dish.description}
                 />
                 <div className={styles.shadow}/>
                 
         </Card>
-        )
-));
-            }
+       </Box>
+    ))
+        
+     )
+        }
+
 export default MenuCard;

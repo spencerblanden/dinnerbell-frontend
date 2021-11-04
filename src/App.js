@@ -7,11 +7,20 @@ import Home from "./pages/Home";
 import Dashboard from './pages/Dashboard';
 import { Redirect } from 'react-router';
 import Show from './pages/Show';
-
+import { useRef } from 'react';
 import { auth } from './services/firebase';
-
+import  Footer  from './components/Footer';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import './App.css';
-import { Unsubscribe } from '@material-ui/icons';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Roboto',
+      'sans-serif',
+    ].join(','),
+  },});
+
 
 
 
@@ -20,48 +29,123 @@ import { Unsubscribe } from '@material-ui/icons';
 function App() {
 const [ user, setUser ] = useState(null);
 
-useEffect(() =>{ 
-const unsubscribe = auth.onAuthStateChanged(user => setUser(user));
-return () => unsubscribe()
-}, [user])
+const [userDetails, setUserDetails] = useState(null);
 
-  const [menuItems, setMenuItems] = useState(null);
+const [menuItems, setMenuItems] = useState(null);
 
-  const URL = "http://localhost:3001/api/menu/";
+const fetchData = useRef(null);
 
-  const getMenuItems = async () => {
-    const response = await fetch(URL);
-    const data = await response.json();
+
+const USER_URL = "https://dinnerbellky.herokuapp.com/api/user/"
+const MENU_URL = "https://dinnerbellky.herokuapp.com/api/menu/";
+
+const getMenuItems = async () => {
+  // if(!user) return;
+  // const token = user.getIdToken()
+  const response = await fetch(MENU_URL);
+  const data = await response.json();
   
-    setMenuItems(data)
-  };
+  setMenuItems(data)
+};
 
-  const updateMenuItem = async dish => {
-    // if(!user) return;
-    // const token = await user.getIdToken();
-    const data = {...dish 
-      // managedBy: user.uid
-    } // attach logged in user's uid to the data we send to the server
-    console.log(data, "data")
-    await fetch(URL, {
-      method: 'PUT', 
+const getUserDetails = async () => {
+  if(!user) return;
+  const token = await user.getIdToken()
+  const response = await fetch(USER_URL, {
+      method: 'Get',
       headers: {
         'Content-type': 'Application/json',
-        // 'Authorization': 'Bearer ' + token
-      },
-      body: JSON.stringify(data)
-    });
-    getMenuItems();
-  }
+        'Authorization': 'Bearer ' + token
+      }
+    })
+  const data = await response.json();
+  console.log(data)
+  setUserDetails(data)
+};
 
+
+const createMenuItem = async dish => {
+  if(!user) return;
+  const token = await user.getIdToken();
+  const data = {...dish ,
+    managedBy: user.uid
+  } // attach logged in user's uid to the data we send to the server
+  console.log(data)
+  await fetch(MENU_URL, {
+    method: 'POST', 
+    headers: {
+      'Content-type': 'Application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+  getMenuItems();
+}
+
+
+const updateMenuItem = async dish => {
+  if(!user) return;
+  const token = await user.getIdToken();
+  const data = {...dish ,
+    managedBy: user.uid
+  } // attach logged in user's uid to the data we send to the server
+  console.log(data)
+  await fetch(MENU_URL, {
+    method: 'PUT', 
+    headers: {
+      'Content-type': 'Application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+  getMenuItems();
+}
+
+const updateUserDetails = async ind => {
+  if(!user) return;
+  const token = await user.getIdToken();
+  const data = {...ind ,
+    user: user.uid
+  } // attach logged in user's uid to the data we send to the server
+  console.log(data)
+  await fetch(USER_URL, {
+    method: 'PUT', 
+    headers: {
+      'Content-type': 'Application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+  getUserDetails();
+}
+
+
+
+useEffect(() => {   
+  getMenuItems()}
+  , [user]);
+
+  useEffect(() =>{ 
+  const unsubscribe = auth.onAuthStateChanged(user => {
+    setUser(user)
+    
+    // if(user) {
+    //   fetchData.current()
+    // } else {
+    //   setMenuItems([])
+    // }
+
+  })
+  return () => unsubscribe()
+  }, [user])
   
-
-  useEffect(() => {   
-    getMenuItems()}
-    , []);
-
   return (
-    <>
+    <ThemeProvider theme={theme}>
+    <div style={{ 
+      backgroundImage: 'url(/DBBG.png)',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+      }}>
       <Nav user={user}/>
       <Switch>
         <Route exact path="/">
@@ -69,22 +153,28 @@ return () => unsubscribe()
         </Route>
         <Route path="/menu" >
             <Menu menuItems={menuItems} 
-            updateMenuItem={updateMenuItem} />
+            updateMenuItem={updateMenuItem} 
+            userDetails={userDetails}
+            updateUserDetails={updateUserDetails}/>
         </Route>
         <Route path="/login" render={() => (
           user ? <Redirect to='/dashboard' /> : <Login />
         )}>
         </Route>
         <Route path="/dashboard" render={() => (
-          user ? <Dashboard /> : <Redirect to='/login' />
+          user ? <Dashboard menuItems={menuItems}
+          createMenuItem={createMenuItem}
+          /> 
+          : <Redirect to='/login' />
         )} >
-            <Dashboard  />
         </Route>
         <Route>
           <Show />
         </Route>
       </Switch>
-   </>
+      <Footer/>
+   </div>
+   </ThemeProvider>
   );
 }
 

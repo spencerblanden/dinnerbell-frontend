@@ -2,8 +2,6 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import styled from 'styled-components';
-import { RowingTwoTone } from '@material-ui/icons';
-import { findByLabelText } from '@testing-library/react';
 import { Link } from 'react-router-dom';
 import { logOut } from '../services/firebase';
 // import { ColumnToRow, Row, Item } from '@mui-treasury/components/flex';
@@ -33,7 +31,7 @@ const NavStyle = styled.header`
        }
        img{
          height: 100px;
-            width: 100px;
+            width: auto;
             position: absolute;
        }
        
@@ -47,7 +45,9 @@ const Nav = (props) => {
            <Box className='outerBox'>
            <Container>
             <Box className='logo'>
-                <img src='../DinnerBellLogo.png' alt=''/>
+                <Link to='/'>
+                <img src='../DBLOGO.png' alt='' />
+                </Link>
             </Box> 
             <Divider />
             <Box className='links'>
