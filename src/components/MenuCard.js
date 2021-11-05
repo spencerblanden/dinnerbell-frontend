@@ -130,7 +130,7 @@ return (
                     checkedIcon={<Favorite />} 
                     key= {idx}
                     name={dish.name} 
-                    checked={false}
+                    
                     onChange={(event) => handleClick(event, dish, rating)}
                     />
                 }
