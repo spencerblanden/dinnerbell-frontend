@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card } from '@material-ui/core';
 import styled from 'styled-components';
-
+import { Helmet }from 'react-helmet';
 
 const DashStyle = styled.body`
 .card 
