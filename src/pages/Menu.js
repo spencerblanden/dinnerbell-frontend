@@ -6,10 +6,8 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import ItemType from "../components/ItemType";
 import { Card } from "@material-ui/core";
-import { flexbox } from "@mui/system";
-import { RowingTwoTone } from "@material-ui/icons";
 import MenuHeader from "../components/MenuHeader";
-
+import { Helmet }from 'react-helmet';
 
   const ContainerStyle = styled.body`
   display: flex;
@@ -54,6 +52,10 @@ function Menu(props) {
   
 
   return (
+    <>
+    <Helmet>
+            <title>DinnerBell</title>
+        </Helmet>
     <ContainerStyle>
      <MenuHeader />
       <Card className='ContainerCard' variant='outlined' sx={{display: 'flex', flexDirection: 'row'}}>
@@ -78,6 +80,7 @@ function Menu(props) {
         </Card>
      
     </ContainerStyle>
+    </>
   );
 }
 

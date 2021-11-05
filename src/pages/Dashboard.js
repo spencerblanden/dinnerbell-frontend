@@ -78,6 +78,9 @@ const Dashboard = (props) => {
 
     return (
         <main>
+            <Helmet>
+            <title>DinnerBell</title>
+        </Helmet>
             <DashStyle>
             <Card className='card'>
             <h1>Add Menu Items Here</h1>
