@@ -1,4 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Card } from '@material-ui/core';
+import styled from 'styled-components';
+
+
+const DashStyle = styled.body`
+.card 
+{display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+form{
+    margin-top: 45px;
+    height: 45px;
+}
+table {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: space-between;
+    align-content: space-between;
+}
+.display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: space-between;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+tr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: space-between;
+    font-weight: bold;
+}
+}
+
+`;
 
 
 const Dashboard = (props) => {
@@ -6,7 +47,6 @@ const Dashboard = (props) => {
         name: "",
         image: "",
         description: "",
-        rating: false,
         itemType: "",
     });
 
@@ -27,13 +67,19 @@ const Dashboard = (props) => {
             name: "",
             image: "",
             description: "",
-            rating: false,
             itemType: "",
         }); 
     }
 
+
+    // useEffect(()=> {
+        
+    // }, [user])
+
     return (
         <main>
+            <DashStyle>
+            <Card className='card'>
             <h1>Add Menu Items Here</h1>
             <section>
                 <form onSubmit={handleSubmit}>
@@ -73,7 +119,7 @@ const Dashboard = (props) => {
                 </form>
                 <table>
                     <thead>
-                        <tr>
+                        <tr className='display'>
                             <th>Name</th>
                             <th>Image</th>
                             <th>Description</th>
@@ -94,6 +140,8 @@ const Dashboard = (props) => {
                     </tbody>
                 </table>
             </section>
+            </Card>
+            </DashStyle>
         </main>
     );
 };

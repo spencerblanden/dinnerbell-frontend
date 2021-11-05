@@ -13,27 +13,32 @@ import {
   
   import Box from '@material-ui/core/Box';
   import Grid from '@material-ui/core/Grid';
+  import styled from 'styled-components';
   import Typography from '@material-ui/core/Typography';
   
 //   import { FontProvider, Font } from 'website/src/components/Font';
 
+const FooterStyle = styled.footer`
+        font-family: tahoma, sans-serif;
+`;
 
   function Footer(props) {
     return (
-      
-        <Box width={'100%'} px={{ xs: 2, sm: 3, lg: 4 }}>
-          <Box styles={12}pt={6} pb={{ md: 6 }}>
+      <FooterStyle>
+        <Box width={'100%'} >
+          <Box style={{background: '#D2D2CF'}} pt={6} pb={{ md: 6 }}>
             <Grid container spacing={4}>
-              <Grid item xs={16} md={4} lg={3}>
+              <Grid item xs={6} md={4} lg={3}>
                 <Box
                   component={'img'}
                   mt={-3}
+                  ml={6}
                   width={120}
                   src="/DinnerBellLogo.png"
                   alt=""
                 />
-                <Box>
-                  <SocialProvider useStyles={useBallSocialLinkStyles}>
+                <Box  ml={4}>
+                  <SocialProvider  useStyles={useBallSocialLinkStyles}>
                     <SocialLink brand={'Envelope'} />
                     <SocialLink brand={'Facebook'} />
                     <SocialLink brand={'Instagram'} />
@@ -71,7 +76,7 @@ import {
             </Grid>
           </Box>
         </Box>
-     
+        </FooterStyle>
     );
   };
 

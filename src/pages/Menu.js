@@ -16,7 +16,7 @@ import MenuHeader from "../components/MenuHeader";
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  
+  font-family: Tahoma, sans-serif;
   .ContainerCard {
     margin-top: 32px;
     margin-bottom: 32px;
@@ -71,6 +71,7 @@ function Menu(props) {
           <MenuCard className='card'    
           menuItems={props.menuItems} 
           updateMenuItem={props.updateMenuItem}
+          user ={ props.user }
           userDetails={props.userDetails}
           updateUserDetails={props.updateUserDetails}/>
         </Box>

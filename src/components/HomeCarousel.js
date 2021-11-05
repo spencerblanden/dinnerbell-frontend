@@ -8,7 +8,9 @@ import { Box } from "@material-ui/core";
 
 
 const ItemStyle = styled.section`
-          display: flex;
+          
+          background-position: bottom 100%;
+         display: flex;
         flex-direction: column; 
          align-items: center;
         justify-content: center;
@@ -19,18 +21,23 @@ const ItemStyle = styled.section`
         }
       
          img {
-          
+           height: 40%;
+           max-height: 500px;
+           min-height: 500px;
          width:100%;
       object-fit: cover;
         overflow: clip;
+        background-position: top;
           }
           
 `;
 
 const CarouselStyle = styled.section`
-        /* width: 100%;
-         
-         object-fit: scale-down; */
+        width: 100%;
+         display: block;
+         object-fit: scale-down;
+         transform:scaleY(0.2);
+        transform-origin:top;
 `;
 
 
@@ -39,7 +46,7 @@ function HomeCarousel(props) {
     {
         name: "Dinner Bell",
         description: "PROUDLY SERVING BEREA, KY",
-        image: "https://scontent-dfw5-2.xx.fbcdn.net/v/t1.6435-9/183387468_4282702905107027_5856822079759098194_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=730e14&_nc_ohc=KSxx7lM6YkYAX-Yf8eM&_nc_ht=scontent-dfw5-2.xx&oh=133098d93d17b68b43e690a499973655&oe=61A7FA7F"
+        image: "/dbkystorefront.jpeg"
     },
     // {
     //     name: "Dinner Bell",
@@ -55,12 +62,15 @@ function HomeCarousel(props) {
 
 return (
   // <CarouselStyle>
-    <Carousel sx={{ width: 1 , objectfit: "cover"  }}>
+  <div>
+    <Carousel sx={{ width: 1 , objectfit: "cover" ,height: .5 }}>
         {
             items.map( (item, i) => <Item key={i} item={item} /> )
         }
     </Carousel>
+    </div>
     // </CarouselStyle>
+
 )
 }
 
@@ -69,7 +79,7 @@ function Item(props)
 return (
   <ItemStyle>
     
-        <h2>{props.item.name}</h2>
+        {/* <h2>{props.item.name}</h2> */}
         <img src={props.item.image} />
     
     </ItemStyle>

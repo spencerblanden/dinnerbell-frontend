@@ -40,8 +40,6 @@ const USER_URL = "https://dinnerbellky.herokuapp.com/api/user/"
 const MENU_URL = "https://dinnerbellky.herokuapp.com/api/menu/";
 
 const getMenuItems = async () => {
-  // if(!user) return;
-  // const token = user.getIdToken()
   const response = await fetch(MENU_URL);
   const data = await response.json();
   
@@ -52,14 +50,14 @@ const getUserDetails = async () => {
   if(!user) return;
   const token = await user.getIdToken()
   const response = await fetch(USER_URL, {
-      method: 'Get',
+      method: 'GET',
       headers: {
         'Content-type': 'Application/json',
         'Authorization': 'Bearer ' + token
       }
     })
   const data = await response.json();
-  console.log(data)
+  
   setUserDetails(data)
 };
 
@@ -104,9 +102,7 @@ const updateMenuItem = async dish => {
 const updateUserDetails = async ind => {
   if(!user) return;
   const token = await user.getIdToken();
-  const data = {...ind ,
-    user: user.uid
-  } // attach logged in user's uid to the data we send to the server
+  const data = {ind: ind, person:user.uid} 
   console.log(data)
   await fetch(USER_URL, {
     method: 'PUT', 
@@ -154,6 +150,7 @@ useEffect(() => {
         <Route path="/menu" >
             <Menu menuItems={menuItems} 
             updateMenuItem={updateMenuItem} 
+            user ={user}
             userDetails={userDetails}
             updateUserDetails={updateUserDetails}/>
         </Route>

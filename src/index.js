@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 // install and config react router
 import { BrowserRouter as Router } from 'react-router-dom';
+import "typeface-roboto";
 
 // HOC pattern - Higher Order Component = Higher Order Function
 // HOF higher order function is a function that returns another function

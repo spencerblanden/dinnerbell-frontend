@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 
 
 const CTAStyle = styled.section`
+
+
        .ctaBox {
             display: flex;
         flex-direction: row;
@@ -16,6 +18,7 @@ const CTAStyle = styled.section`
         height: 11rem;
         width: 100%;
         box-shadow: 1px 1px 3px 2px #808080;
+        font-family: Tahoma, sans-serif;
         .text{
            display: flex;
            justify-content: flex-end;
@@ -33,6 +36,7 @@ const CTAStyle = styled.section`
             color: whitesmoke;
             background-color: #464444;
         }
+       
        }
        
        

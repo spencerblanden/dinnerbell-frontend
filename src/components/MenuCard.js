@@ -11,6 +11,7 @@ import Favorite from '@material-ui/icons/Favorite';
 import { useState } from 'react';
 import MenuCardFormButton from './MenuCardFormButtons'
 import { flexbox } from '@mui/system';
+import userEvent from '@testing-library/user-event';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const useStyles= makeStyles(() => ({
@@ -81,27 +82,15 @@ function MenuCard(props) {
 
     const [ rating, setRating ] = useState(false )
 
-    const [ itemName, setItemName ] = useState(null)
-
-
-
-const handleClick = async (event, dish, newRating) => {
    
-    console.log(newRating)
-    await setRating(!newRating)
 
-    await props.updateUserDetails({
-        ...props.userDetails,
-        details: [{
-            rating: !newRating,
-            menuItem: dish.name
-        }]
-    })
 
-  
-        
-//    await props.updateMenuItem({...dish,
-//     rating: !dish.rating});  
+
+const handleClick = async (event, dish) => {
+   
+
+   await props.updateUserDetails({
+    menuItem: dish.name});  
 }
 
 
@@ -139,8 +128,9 @@ return (
                     <Checkbox {...label} 
                     icon={<FavoriteBorder />} 
                     checkedIcon={<Favorite />} 
+                    key= {idx}
                     name={dish.name} 
-                    checked={rating}
+                    checked={false}
                     onChange={(event) => handleClick(event, dish, rating)}
                     />
                 }
